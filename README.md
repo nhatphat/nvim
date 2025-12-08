@@ -31,3 +31,11 @@ Refer to the [documentation](https://lazyvim.github.io/installation) to get star
 
 - **Auto-save**: Disabled (previously saved on `InsertLeave` and `TextChanged`)
   - Now using manual `Cmd+S` save instead
+
+### Markdown Linter (`lua/plugins/markdown.lua`)
+
+- **Custom markdownlint-cli2 Configuration**:
+  - Uses custom config file: `lua/plugins/.markdownlint-cli2.jsonc`
+  - Currently: All default rules disabled (`"default": false`)
+  - To enable specific rules, set them to `true` in the config file
+  - Example: Uncomment `"MD022": true` to enable blanks-around-headings rule
