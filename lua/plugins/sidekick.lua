@@ -2,9 +2,33 @@ return {
   "folke/sidekick.nvim",
   opts = {
     cli = {
+      -- win = {
+      --   keys = {
+      --     prompt = {
+      --       "<a-p>",
+      --       "prompt",
+      --       mode = "t",
+      --       desc = "passthrough C-p to tool",
+      --     },
+      --   },
+      -- },
       mux = {
         backend = "zellij",
         enabled = true,
+      },
+      tools = {
+        amazon_q = {
+          cmd = { "kiro-cli" },
+        },
+        opencode_teq = {
+          cmd = { "opencode" },
+          env = {
+            -- HACK: https://github.com/sst/opencode/issues/445
+            OPENCODE_THEME = "system",
+            AWS_PROFILE = "cline-bedrock",
+          },
+          keys = { prompt = { "<a-p>", "prompt" } },
+        },
       },
     },
   },
