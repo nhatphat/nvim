@@ -29,7 +29,7 @@ return {
       sources = {
         explorer = {
           hidden = true,
-          ignored = true,
+          -- ignored = true,
         },
         files = {
           hidden = true,
