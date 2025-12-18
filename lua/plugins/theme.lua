@@ -1,0 +1,32 @@
+return {
+  "tokyonight.nvim",
+  opts = {
+    transparent = true,
+    styles = {
+      sidebars = "transparent",
+      floats = "transparent",
+    },
+    on_highlights = function(hl, c)
+      hl.LineNr = {
+        fg = c.dark5,
+        bg = "NONE",
+      }
+
+      hl.CursorLineNr = {
+        fg = c.orange,
+        bold = true,
+        bg = "NONE",
+      }
+
+      hl.LineNrAbove = {
+        fg = "#b0b0b0",
+        bg = "NONE",
+      }
+
+      hl.LineNrBelow = {
+        fg = "#b0b0b0",
+        bg = "NONE",
+      }
+    end,
+  },
+}
