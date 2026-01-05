@@ -53,12 +53,12 @@ return {
         },
       },
     },
-    terminal = {
-      win = {
-        position = "float",
-        backdrop = false,
-        border = "rounded",
-      },
-    },
+    -- terminal = {
+    --   win = {
+    --     position = "float",
+    --     backdrop = false,
+    --     border = "rounded",
+    --   },
+    -- },
   },
 }
