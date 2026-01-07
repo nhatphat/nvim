@@ -27,6 +27,8 @@ Refer to the [documentation](https://lazyvim.github.io/installation) to get star
   - Filtered diagnostics: `reportAttributeAccessIssue` is disabled
   - Add more ignored diagnostics in the `ignored_diagnostics` table
 
+- Using Ty instead of Pyright for linting and type checking
+
 ### Autocmds (`lua/config/autocmds.lua`)
 
 - **Auto-save**: Disabled (previously saved on `InsertLeave` and `TextChanged`)
