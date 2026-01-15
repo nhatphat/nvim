@@ -12,8 +12,8 @@ vim.keymap.set("n", "<D-s>", "<cmd>wall<CR>", { silent = true, desc = "Save all 
 vim.keymap.set("i", "<D-s>", "<Esc><cmd>wall<CR>a", { silent = true, desc = "Save all files" })
 vim.keymap.set("v", "<D-s>", "<Esc><cmd>wall<CR>gv", { silent = true, desc = "Save all files" })
 
--- map \ to behave like Ctrl+o (jump to previous location)
-vim.keymap.set("n", "\\", "<C-o>", { silent = true, desc = "Jump to previous location" })
+-- map Delete to behave like Ctrl+o (jump to previous location)
+vim.keymap.set("n", "<BS>", "<C-o>", { silent = true, desc = "Jump to previous location" })
 
 -- Terminal keymaps - Ctrl+/ to toggle terminal at cwd (like LazyVim's <leader>fT)
 vim.keymap.set("n", "<C-/>", function()
