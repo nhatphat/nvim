@@ -31,3 +31,37 @@ vim.keymap.set("v", "<C-/>", function()
 end, { desc = "Terminal (cwd)" })
 
 vim.keymap.set("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+-- ==============================================================
+-- SMART ENTER KEY FOR LSP: gd -> gr fallback
+-- ==============================================================
+-- Function to show definitions, with automatic fallback to references if no definitions found
+-- Uses Snacks picker with on_close callback for automatic fallback
+-- Note: If you're at a definition and want to see references, use `gr` manually
+local function smart_lsp_goto()
+  Snacks.picker.lsp_definitions({
+    on_close = function(picker)
+      -- If picker had no results (empty), automatically show references
+      if picker:empty() then
+        vim.schedule(function()
+          Snacks.picker.lsp_references()
+        end)
+      end
+    end,
+  })
+end
+
+-- Set up Enter key mapping when LSP attaches to buffer
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("lsp_smart_enter", { clear = true }),
+  callback = function(args)
+    local bufnr = args.buf
+    -- Normal mode: Enter to smart goto
+    vim.keymap.set("n", "<CR>", smart_lsp_goto, { buffer = bufnr, silent = true, desc = "LSP: Smart goto (gd->gr)" })
+    -- Visual mode: Escape visual mode, then smart goto
+    vim.keymap.set("v", "<CR>", function()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+      smart_lsp_goto()
+    end, { buffer = bufnr, silent = true, desc = "LSP: Smart goto (gd->gr)" })
+  end,
+})
