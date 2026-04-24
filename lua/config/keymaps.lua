@@ -63,5 +63,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
       smart_lsp_goto()
     end, { buffer = bufnr, silent = true, desc = "LSP: Smart goto (gd->gr)" })
+    -- Shift+Enter: go to implementation
+    vim.keymap.set("n", "<M-CR>", function()
+      Snacks.picker.lsp_implementations()
+    end, { buffer = bufnr, silent = true, desc = "LSP: Go to implementation" })
+    vim.keymap.set("v", "<M-CR>", function()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+      Snacks.picker.lsp_implementations()
+    end, { buffer = bufnr, silent = true, desc = "LSP: Go to implementation" })
   end,
 })
