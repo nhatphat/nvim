@@ -1,43 +1,82 @@
-# 💤 LazyVim
+# Neovim Config
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+This Neovim setup is built on top of [LazyVim](https://github.com/LazyVim/LazyVim) with additional customizations for daily development workflows.
 
-## 🎨 Custom Configurations
+## Overview
 
-### Keymaps (`lua/config/keymaps.lua`)
+- Base distribution: `LazyVim`
+- Plugin manager: `lazy.nvim`
+- Current colorscheme: `gruvbox`
+- Enabled extra modules in `lazyvim.json`:
+  - `ai.copilot`
+  - `ai.sidekick`
+  - `lang.docker`
+  - `lang.go`
+  - `lang.helm`
+  - `lang.json`
+  - `lang.markdown`
+  - `lang.rust`
+  - `lang.terraform`
+  - `lang.toml`
+  - `lang.typescript`
+  - `lang.yaml`
 
-#### Comment Toggle
-- **`Ctrl + ,`**: Toggle comment in normal, visual, and insert modes
-  - Normal mode: Comments current line
-  - Visual mode: Comments selected lines
-  - Insert mode: Comments current line and returns to insert mode
+## Main Customizations
 
-#### Save All Files
-- **`Cmd + S`**: Save all modified files (`:wall`)
-  - Normal mode: Saves all files
-  - Insert mode: Saves and returns to insert mode at cursor position
-  - Visual mode: Saves and restores visual selection
+### 1. Keymaps (`lua/config/keymaps.lua`)
 
-### Python LSP (`lua/plugins/python_lsp.lua`)
+- `Ctrl + ,`
+  - Normal: toggle comment for the current line
+  - Visual: toggle comment for the selected range
+  - Insert: comment the current line and return to insert mode
+- `Cmd + S`
+  - Save all open files with `:wall`
+  - Supported in normal, insert, and visual mode
+- `Backspace` in normal mode
+  - Remapped to `Ctrl + o` to jump back in the jumplist
+- `Ctrl + /`
+  - Normal/Insert/Visual: open `Snacks.terminal` in the current working directory
+  - Terminal mode: close the terminal window
+- `Enter` when an LSP attaches to the buffer
+  - Open definitions with `Snacks.picker.lsp_definitions()`
+  - Automatically fall back to references if no definitions are found
+- `Alt + Enter` when an LSP attaches to the buffer
+  - Open implementations
+- `Tab` (`lua/plugins/sidekick.lua`)
+  - In Sidekick, prefer jumping to or applying the next edit via `nes_jump_or_apply()`
 
-- **Pyright Configuration**:
-  - Auto-detects `.venv` or `venv` directories for Python path
-  - Type checking mode: `basic`
-  - Filtered diagnostics: `reportAttributeAccessIssue` is disabled
-  - Add more ignored diagnostics in the `ignored_diagnostics` table
+### 2. UI And Navigation
 
-- Using Ty instead of Pyright for linting and type checking
+#### Colorscheme (`lua/plugins/colorscheme.lua`)
 
-### Autocmds (`lua/config/autocmds.lua`)
+- Uses `gruvbox` as the default colorscheme
 
-- **Auto-save**: Disabled (previously saved on `InsertLeave` and `TextChanged`)
-  - Now using manual `Cmd+S` save instead
+#### Dashboard (`lua/plugins/dashboard.lua`)
 
-### Markdown Linter (`lua/plugins/markdown.lua`)
+- Replaces the default `snacks.nvim` dashboard header with a custom ASCII header
+- Current sections:
+  - `Keymaps`
+  - `Projects`
+  - `Startup`
 
-- **Custom markdownlint-cli2 Configuration**:
-  - Uses custom config file: `lua/plugins/.markdownlint-cli2.jsonc`
-  - Currently: All default rules disabled (`"default": false`)
-  - To enable specific rules, set them to `true` in the config file
-  - Example: Uncomment `"MD022": true` to enable blanks-around-headings rule
+#### Snacks Picker (`lua/plugins/snacks.lua`)
+
+- Enables image support
+- Pickers for `files`, `grep`, `grep_word`, `grep_buffers`, and `explorer` all show hidden files
+- `files` and all `grep*` sources use `ignored = true` so ignored files can still be searched
+- Excludes common noisy folders and files:
+  - `.git`
+  - `node_modules`
+  - `.venv`, `venv`
+  - `__pycache__`
+  - `.pytest_cache`, `.mypy_cache`, `.ruff_cache`, `.tox`
+  - `*.egg-info`, `.eggs`
+  - `.ipynb_checkpoints`, `htmlcov`, `.hypothesis`
+  - `.idea`, `.vscode`, `.DS_Store`
+
+### 3. Git (`lua/plugins/gitsigns.lua`)
+
+- Enables `current_line_blame`
+- Shows inline blame after `1000ms`
+- Blame format: `<author>, <author_time:%R> - <summary>`
+
