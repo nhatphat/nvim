@@ -73,3 +73,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, { buffer = bufnr, silent = true, desc = "LSP: Go to implementation" })
   end,
 })
+
+vim.keymap.set("n", "<leader>gk", function()
+  Snacks.terminal("hunk diff", {
+    win = {
+      position = "float",
+      width = 0.95,
+      height = 0.95,
+      border = "rounded",
+    },
+  })
+end, {
+  desc = "Open Hunk diff",
+})
