@@ -78,8 +78,8 @@ vim.keymap.set("n", "<leader>gk", function()
   Snacks.terminal("hunk diff", {
     win = {
       position = "float",
-      width = 0.95,
-      height = 0.95,
+      width = 0.98,
+      height = 0.98,
       border = "rounded",
     },
   })
