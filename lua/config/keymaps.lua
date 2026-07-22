@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-vim.keymap.set("n", "<leader>gk", function()
+vim.keymap.set("n", "<leader>hh", function()
   Snacks.terminal("hunk diff", {
     win = {
       position = "float",
@@ -84,5 +84,18 @@ vim.keymap.set("n", "<leader>gk", function()
     },
   })
 end, {
-  desc = "Open Hunk diff",
+  desc = "hunk diff",
+})
+
+vim.keymap.set("n", "<leader>hs", function()
+  Snacks.terminal("hunk show", {
+    win = {
+      position = "float",
+      width = 0.98,
+      height = 0.98,
+      border = "rounded",
+    },
+  })
+end, {
+  desc = "hunk show",
 })
