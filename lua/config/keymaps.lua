@@ -77,11 +77,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.keymap.set("n", "<leader>hh", function()
   Snacks.terminal(
     [[
-    if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard --directory | head -n 1)" ]; then
+    sh -c 'if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard --directory | head -n 1)" ]; then
       hunk diff --staged
     else
       hunk diff
-    fi
+    fi'
   ]],
     {
       win = {
