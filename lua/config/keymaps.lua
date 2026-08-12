@@ -75,14 +75,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.keymap.set("n", "<leader>hh", function()
-  Snacks.terminal("git diff --quiet && hunk diff --staged || hunk diff", {
-    win = {
-      position = "float",
-      width = 0.98,
-      height = 0.98,
-      border = "rounded",
-    },
-  })
+  Snacks.terminal(
+    [[
+    if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard --directory | head -n 1)" ]; then
+      hunk diff --staged
+    else
+      hunk diff
+    fi
+  ]],
+    {
+      win = {
+        position = "float",
+        width = 0.98,
+        height = 0.98,
+        border = "rounded",
+      },
+    }
+  )
 end, {
   desc = "hunk diff",
 })
@@ -97,7 +106,7 @@ vim.keymap.set("n", "<leader>hH", function()
     },
   })
 end, {
-  desc = "hunk diff staged",
+  desc = "hunk show",
 })
 
 vim.keymap.set("n", "<leader>hs", function()
