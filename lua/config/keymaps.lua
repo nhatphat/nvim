@@ -93,6 +93,19 @@ vim.keymap.set("n", "<leader>hh", function()
     }
   )
 end, {
+  desc = "hunk diff/staged",
+})
+
+vim.keymap.set("n", "<leader>hd", function()
+  Snacks.terminal("hunk diff", {
+    win = {
+      position = "float",
+      width = 0.98,
+      height = 0.98,
+      border = "rounded",
+    },
+  })
+end, {
   desc = "hunk diff",
 })
 
@@ -106,7 +119,7 @@ vim.keymap.set("n", "<leader>hH", function()
     },
   })
 end, {
-  desc = "hunk show",
+  desc = "hunk staged",
 })
 
 vim.keymap.set("n", "<leader>hs", function()
